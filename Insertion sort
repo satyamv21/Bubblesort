@@ -1,0 +1,61 @@
+insertion sort 
+
+#include <iostream>
+#include <string.h>
+const int SIZE = 5; // Renamed constant
+using namespace std;
+
+struct student {
+    int rollno;
+    char name[20];
+    float SGPA;
+};
+
+void accept(struct student list[SIZE]);
+void display(struct student list[SIZE]);
+void insertionsort(struct student list[SIZE]);
+
+int main() {
+    struct student list[SIZE];
+
+    accept(list);
+    cout << "\nBefore Sorting:";
+    display(list);
+
+    insertionsort(list);
+    cout << "\nAfter Sorting (by Name):";
+    display(list);
+
+    return 0;
+}
+
+void accept(struct student list[SIZE]) {
+    for (int i = 0; i < SIZE; i++) {
+        cout << "Enter roll no., name, and SGPA: ";
+        cin >> list[i].rollno >> list[i].name >> list[i].SGPA;
+    }
+}
+
+void display(struct student list[SIZE]) {
+    cout << "\nRoll No.\tName\t\tSGPA\n";
+    for (int i = 0; i < SIZE; i++) {
+        cout << list[i].rollno << "\t\t" << list[i].name << "\t\t" << list[i].SGPA << "\n";
+    }
+}
+
+void insertionsort(struct student list[SIZE]) {
+    struct student key;
+    int j;
+
+    for (int i = 1; i < SIZE; i++) {
+        key = list[i];
+        j = i - 1;
+
+        // Compare names using strcmp
+        while (j >= 0 && strcmp(list[j].name, key.name) > 0) {
+            list[j + 1] = list[j];
+            j--;
+        }
+        list[j + 1] = key;
+    }
+}
